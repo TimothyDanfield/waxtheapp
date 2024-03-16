@@ -12,11 +12,19 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run client",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "client": "npm start --workspace=client",
+    "server": "npm run start --workspace=server"
   },
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "client": "npm start --workspace=client",
+  "server": "npm run start --workspace=server",
   "eslintConfig": {
     "extends": [
       "react-app",
