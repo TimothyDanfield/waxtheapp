@@ -4,6 +4,8 @@ import Navbar from "./NavBar/NavBar";
 import Shop from "./Shop/Shop";
 import Home from "./Home/Home";
 
+import Login from "./Login/Login";
+
 function App() {
   return (
     <Router>
@@ -12,6 +14,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/shop" element={<Shop />} />
+          <Route exact path="/login" element={<Login />} />
         </Routes>
       </div>
     </Router>

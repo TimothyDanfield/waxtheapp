@@ -8,8 +8,23 @@
 }
 
 .search {
-  margin-right: auto;
-  margin-left: 20px;
+  margin-right: 40px;
+  margin-left: auto;
+  flex: 1;
+}
+
+.search input {
+  width: 60%;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+}
+
+.navbar li:first-child {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffcc00;
+  text-transform: uppercase;
 }
 
 .navbar ul {
@@ -17,7 +32,7 @@
   padding: 10px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .navbar li {
@@ -31,4 +46,10 @@
 
 .navbar a.active {
   font-weight: bold;
+}
+
+.auth {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
 }
