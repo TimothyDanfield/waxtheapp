@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const verifyToken = require("../middleware/auth")
 const verifyRole = require("../middleware/role")
+const { validateBodyParams } = require("../middleware/ErrorHandler");
 
 const router = express.Router()
 
@@ -93,7 +94,7 @@ router.post("/login", validateBodyParams("email", "password"), async (req, res, 
                     email,
                     role: checkExistingUser.role,
                 },
-                keys.jwt.secret,
+                process.env.JWT_SECRET,
                 { expiresIn: "1d" }
             )
 
@@ -130,11 +131,10 @@ router.post("/register", validateBodyParams("name", "email", "password", "confir
                 name,
                 email,
                 password: hashedPassword,
-            })
+            }) 
 
             newUser = newUser.toJSON()
-                .select("-password")
-            //delete newUser.password    if .select doesnt work
+            delete newUser.password
 
             return res.status(201).send(newUser)
         }
