@@ -2,14 +2,56 @@
   padding: 20px;
 }
 
-.live-now {
+.live-now-container,
+.upcoming-lives-container {
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.live-now-container::before,
+.live-now-container::after,
+.upcoming-lives-container::before,
+.upcoming-lives-container::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 45%;
+  height: 1px;
+  background-color: #008080; /* Teal color */
+}
+
+.live-now-container::before,
+.upcoming-lives-container::before {
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.live-now-container::after,
+.upcoming-lives-container::after {
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.live-now,
+.upcoming-lives {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
+}
+
+.card1 {
+  flex: 0 0 calc(33.33% - 20px);
+  background-image: url("client/src/logo.jpg.png");
+  margin: 10px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .card {
-  width: calc(33.33% - 20px);
+  flex: 0 0 calc(33.33% - 20px);
   margin: 10px;
   padding: 20px;
   background-color: #f9f9f9;
@@ -19,12 +61,12 @@
 
 @media (max-width: 768px) {
   .card {
-    width: calc(50% - 20px);
+    flex: 0 0 calc(50% - 20px);
   }
 }
 
 @media (max-width: 480px) {
   .card {
-    width: 100%;
+    flex: 0 0 100%;
   }
 }
