@@ -1,35 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Navbar.css";
 
 function Navbar() {
-  const navbarStyle = {
-    backgroundColor: "black",
-    color: "white",
-    padding: "10px",
-    marginBottom: "20px",
-    textAlign: "center",
-  };
-
   return (
-    <nav style={navbarStyle}>
-      <ul style={{ listStyleType: "none", padding: 0 }}>
-        <li style={{ display: "inline-block", marginRight: "20px" }}>
-          <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+    <nav className="navbar">
+      <ul>
+        <li className="search">
+          <input
+            type="text"
+            placeholder="Search for products"
+            style={{ padding: "5px" }}
+          />
+        </li>
+        <li>
+          <Link to="/Home" className="nav-link">
             Home
           </Link>
         </li>
-        <li style={{ display: "inline-block", marginRight: "20px" }}>
-          <Link to="/Shop" style={{ color: "white", textDecoration: "none" }}>
+        <li>
+          <Link to="/Shop" className="nav-link">
             Shop
           </Link>
         </li>
-        <li style={{ display: "inline-block", marginRight: "20px" }}>
-          <Link to="/store" style={{ color: "white", textDecoration: "none" }}>
+        <li>
+          <Link to="/store" className="nav-link">
             Store
           </Link>
         </li>
-        <li style={{ display: "inline-block" }}>
-          <Link to="/team" style={{ color: "white", textDecoration: "none" }}>
+        <li>
+          <Link to="/team" className="nav-link">
             Team
           </Link>
         </li>
