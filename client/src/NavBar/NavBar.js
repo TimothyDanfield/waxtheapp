@@ -6,6 +6,7 @@ function Navbar() {
   return (
     <nav className="navbar">
       <ul>
+        <li>WAX</li>
         <li className="search">
           <input
             type="text"
@@ -14,7 +15,7 @@ function Navbar() {
           />
         </li>
         <li>
-          <Link to="/Home" className="nav-link">
+          <Link to="/" className="nav-link">
             Home
           </Link>
         </li>
@@ -24,13 +25,26 @@ function Navbar() {
           </Link>
         </li>
         <li>
-          <Link to="/store" className="nav-link">
+          <a
+            href="https://www.northlandbreaks.com/"
+            target="_blank"
+            className="nav-link"
+          >
             Store
-          </Link>
+          </a>
         </li>
         <li>
           <Link to="/team" className="nav-link">
             Team
+          </Link>
+        </li>
+        <li className="auth">
+          <Link to="/login" className="nav-link">
+            Signup
+          </Link>
+          /
+          <Link to="/login" className="nav-link">
+            Login
           </Link>
         </li>
       </ul>

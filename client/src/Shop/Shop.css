@@ -14,8 +14,9 @@
   padding: 10px;
   transition: all 0.3s;
   background-image: url("client/src/logo.jpg.png");
-  background-size: cover;
+  background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 .shop-box:hover {
