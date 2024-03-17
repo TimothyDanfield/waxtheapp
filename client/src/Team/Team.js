@@ -1,7 +1,11 @@
 import React from "react";
+import Signin from "../components/Signin/Signin";
 
 const Team = () => {
-  return <div>Team</div>;
+  return (
+      <Signin />
+  )
+  
 };
 
 export default Team;

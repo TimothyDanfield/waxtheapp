@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./NavBar/NavBar";
 import Shop from "./Shop/Shop";
 import Home from "./Home/Home";
-
-import Login from "./Login/Login";
+import Team from "./Team/Team";
+import Signin from "./components/Signin/Signin";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/shop" element={<Shop />} />
-          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/signin" element={<Signin />} />
         </Routes>
       </div>
     </Router>
