@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'
+import axios from '../../utils/axiosConfig'
 import toast, { Toaster } from 'react-hot-toast'
 import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
@@ -9,46 +9,54 @@ import './Signin.css'
 
 const Signin = () => {
 
-    const [name, setName] = useState("");
-    const [securityQuestion, setSecurityQuestion] = useState("")
-    const [securityAnswer, setSecurityAnswer] = useState("")
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    // const [name, setName] = useState("");
+    // const [securityQuestion, setSecurityQuestion] = useState("")
+    // const [securityAnswer, setSecurityAnswer] = useState("")
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
     const [user, setUser] = useState()
+    const [login, setLogin] = useState({
+        email: '',
+        password: ''
+    })
+
+    const [signup, setSignup] = useState({
+        name: '',
+        securityQuestion: '',
+        securityAnswer: '',
+        email: '', 
+        password: ''
+    })
 
     const navigate = useNavigate()
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
+    const handleLogin = (e) => {
+        setLogin({
+            ...login,
+            [e.target.name]: e.target.value
+        })
+    }
 
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-    };
+    const handleSignup = (e) => {
+        setSignup({
+            ...signup,
+            [e.target.name]: e.target.value
+        })
+    }
 
     // Normal login functionality
     const loginUser = async (e) => {
         e.preventDefault()
-        if (!email || !password) return;
+        if (!login.email || !login.password) {
+            toast.error("Please fill out required information")
+            return
+        };
 
         try {
-            const newUser = await axios.post(`/login?email=${email}&&password=${password}`)
-            setUser(newUser)
-            localStorage.setItem('User', JSON.stringify(newUser.data.user))
-            localStorage.setItem('Token', JSON.stringify(newUser.data.token))
-            navigate('/profile')
-        } catch (error) {
-            toast.error("Incorrect username or password")
-        }
-    };
-
-    const loginTestUser = async (e) => {
-        e.preventDefault()
-        const adminEmail = "admin@gmail.com"
-        const adminPassword = "admintest"
-
-        try {
-            const newUser = await axios.post(`/login?email=${adminEmail}&&password=${adminPassword}`)
+            const newUser = await axios.post('http://localhost:3001/user/login', {
+                email: login.email,
+                password: login.password
+            })
             setUser(newUser)
             localStorage.setItem('User', JSON.stringify(newUser.data.user))
             localStorage.setItem('Token', JSON.stringify(newUser.data.token))
@@ -60,37 +68,25 @@ const Signin = () => {
 
 
     const handleForgotPassword = () => {
-        localStorage.setItem('ForgotPassword', JSON.stringify(email))
+        localStorage.setItem('ForgotPassword', JSON.stringify(login.email))
         navigate('/forgotpassword')
     }
 
-
-    const handleNameChange = (e) => {
-        setName(e.target.value);
-    };
-
-    const handleSecurityQuestion = (e) => {
-        setSecurityQuestion(e.target.value)
-    }
-
-    const handleSecurityAnswer = (e) => {
-        setSecurityAnswer(e.target.value)
-    }
 
     // Signup Functionality:
 
     const signUp = async (e) => {
         e.preventDefault()
         try {
-            if (!password || !name || !email || !securityQuestion || !securityAnswer) {
+            if (!signup.password || !signup.name || !signup.email || !signup.securityQuestion || !signup.securityAnswer) {
                 toast.error("Please fill out required information");
             } else {
-                const newUser = await axios.post(`/register`, {
-                    name: name,
-                    email: email,
-                    password: password,
-                    securityQuestion: securityQuestion,
-                    securityAnswer: securityAnswer
+                const newUser = await axios.post(`http://localhost:3001/user/register`, {
+                    name: signup.name,
+                    email: signup.email,
+                    password: signup.password,
+                    securityQuestion: signup.securityQuestion,
+                    securityAnswer: signup.securityAnswer
                 })
                 localStorage.setItem('User', JSON.stringify(newUser.data.user))
                 localStorage.setItem('Token', JSON.stringify(newUser.data.token))
@@ -100,6 +96,7 @@ const Signin = () => {
             console.log(error);
         }
     };
+
     return (
         <div style={{ textAlign: "center" }} className="section">
     <div className="container">
@@ -116,10 +113,10 @@ const Signin = () => {
                                     <div style={{ textAlign: "center" }} className="section text-center">
                                         <h4 style={{ marginBottom: "1rem", paddingBottom: "0.75rem", color: "#008080" }}>Log In</h4>
                                         <div className="form-group">
-                                            <input style={{ marginBottom: "0.75rem" }} type="email" className="form-style" placeholder="Email" onChange={handleEmailChange} />
+                                            <input style={{ marginBottom: "0.75rem" }} type="email" className="form-style" placeholder="Email" name="email" onChange={handleLogin} />
                                         </div>
                                         <div className="form-group mt-2">
-                                            <input type="password" style={{ marginBottom: "0.75rem" }} className="form-style" placeholder="Password" onChange={handlePasswordChange} />
+                                            <input type="password" style={{ marginBottom: "0.75rem" }} className="form-style" placeholder="Password" name="password" onChange={handleLogin} />
                                         </div>
                                         <div style={{ margin: "1rem 0" }} onClick={loginUser} className="btn m-4 log-in-page-button">Login</div>
                                         <div style={{ margin: "1rem 0" }} className='separator'>
@@ -133,7 +130,7 @@ const Signin = () => {
                                                 position="bottom center"
                                                 className='forgotPassword'>
                                                 <div className="form-group mt-2">
-                                                    <input style={{ marginBottom: "0.75rem", width: '60%'}} onChange={handleEmailChange} type="email" className="form-style" placeholder="Email" />
+                                                    <input style={{ marginBottom: "0.75rem", width: '60%'}} onChange={handleLogin} type="email" className="form-style" placeholder="Email" />
                                                     <i className="input-icon uil uil-at"></i>
                                                     <button onClick={handleForgotPassword} className="forgotPwdButton">Submit</button>
                                                 </div>
@@ -147,15 +144,15 @@ const Signin = () => {
                                     <div style={{ textAlign: "center" }} className="section">
                                         <h4 style={{ marginBottom: "0.75rem", paddingBottom: "0.75rem", color: '#008080' }}>Sign Up</h4>
                                         <div className="form-group">
-                                            <input style={{ marginBottom: "0.75rem" }} onChange={handleNameChange} type="text" className="form-style" placeholder="Name" />
+                                            <input style={{ marginBottom: "0.75rem" }} onChange={handleSignup} type="text" className="form-style" placeholder="Name" name="name"/>
                                             <i className="input-icon uil uil-user"></i>
                                         </div>
                                         <div className="form-group">
-                                            <input style={{ marginBottom: "0.75rem" }} onChange={handleEmailChange} type="email" className="form-style" placeholder="Email" />
+                                            <input style={{ marginBottom: "0.75rem" }} onChange={handleSignup} type="email" className="form-style" placeholder="Email" name="email"/>
                                             <i className="input-icon uil uil-at"></i>
                                         </div>
                                         <div className="form-group">
-                                            <select style={{ marginBottom: "0.75rem", width: '90%'}} onChange={handleSecurityQuestion} type="select" className="form-style" placeholder="Security Question">
+                                            <select style={{ marginBottom: "0.75rem", width: '90%'}} onChange={handleSignup} type="select" className="form-style" placeholder="Security Question" name="securityQuestion">
                                                 <option value="N/A">Security Question</option>
                                                 <option value="What is your oldest sibling's middle name?">What is your oldest sibling's middle name?</option>
                                                 <option value="Where did you meet your spouse?">Where did you meet your spouse?</option>
@@ -165,11 +162,11 @@ const Signin = () => {
                                             <i className="input-icon uil uil-lock-access"></i>
                                         </div>
                                         <div className="form-group">
-                                            <input style={{ marginBottom: "0.75rem" }} onChange={handleSecurityAnswer} type='text' className="form-style" placeholder="Security Question Answer" />
+                                            <input style={{ marginBottom: "0.75rem" }} onChange={handleSignup} type='text' className="form-style" placeholder="Security Question Answer" name="securityAnswer"/>
                                             <i className="input-icon uil uil-comment-alt-question"></i>
                                         </div>
                                         <div className="form-group">
-                                            <input style={{ marginBottom: "0.75rem" }} onChange={handlePasswordChange} type="password" className="form-style" placeholder="Password" />
+                                            <input style={{ marginBottom: "0.75rem" }} onChange={handleSignup} type="password" className="form-style" placeholder="Password" name="password"/>
                                             <i className="input-icon uil uil-lock-alt"></i>
                                         </div>
                                         <div style={{ marginTop: "1rem" }} onClick={signUp} className="btn mt-4 log-in-page-button">Register</div>
@@ -182,6 +179,7 @@ const Signin = () => {
             </div>
         </div>
     </div>
+    <Toaster />
 </div>
     )
 }

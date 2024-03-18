@@ -112,12 +112,9 @@ router.post("/login", validateBodyParams("email", "password"), async (req, res, 
 })
 
 // Register endpoint for creating a new user
-router.post("/register", validateBodyParams("name", "email", "password", "confirmPassword"), async (req, res, next) => {
-    const { name, email, password, confirmPassword } = req.body
-    
-    if(password !== confirmPassword) {
-        return res.status(422).send({ error: "Passwords must match" })
-    }
+router.post("/register", async (req, res, next) => {
+    const { name, email, securityQuestion, securityAnswer, password } = req.body
+    console.log(name)
 
     try {
         const checkForUser = await User.findOne({ email }) //checks for existing user
@@ -130,6 +127,8 @@ router.post("/register", validateBodyParams("name", "email", "password", "confir
             let newUser = await User.create({
                 name,
                 email,
+                securityQuestion,
+                securityAnswer,
                 password: hashedPassword,
             }) 
 
