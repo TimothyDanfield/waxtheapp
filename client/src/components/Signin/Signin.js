@@ -4,6 +4,7 @@ import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast'
 import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
+
 import './Signin.css'
 
 const Signin = () => {
@@ -100,80 +101,78 @@ const Signin = () => {
         }
     };
     return (
-        <div className="section">
-            <div className="container">
-                <div className="row full-height justify-content-center">
-                    <div className="col-12 text-center align-self-center py-5">
-                        <div className="section pb-5 pt-5 pt-sm-2 text-center">
-                            <h6 className="mb-0 pb-3"><span>Log In </span><span>Sign Up</span></h6>
-                            <input className="checkbox" type="checkbox" id="reg-log" name="reg-log" />
-                            <label htmlFor="reg-log"></label>
-                            <div className="card-3d-wrap mx-auto">
-                                <div className="card-3d-wrapper">
-                                    <div className="card-front">
-                                        <div className="center-wrap">
-                                            <div className="section text-center">
-                                                <h4 className="mb-4 pb-3">Log In</h4>
-                                                <div className="form-group">
-                                                    <input type="email" className="form-style" placeholder="Email" onChange={handleEmailChange} />
-                                                </div>
-                                                <div className="form-group mt-2">
-                                                    <input type="password" className="form-style" placeholder="Password" onChange={handlePasswordChange} />
-                                                </div>
-                                                <button onClick={loginUser} className="btn m-4 log-in-page-button">Login</button>
-                                                <div className='separator'>
-                                                    <div className='line'></div>
-                                                    <div className="text-center or" style={{ color: '#008080' }}>Or</div>
-                                                    <div className='line'></div>
-                                                </div>
-                                                <p className="mb-0 mt-4 text-center">
-                                                    <Popup
-                                                        trigger={<div className='forgotPwd'>Forgot Password?</div>}
-                                                        position="bottom center"
-                                                        className='forgotPassword'>
-                                                        <div className="form-group mt-2">
-                                                            <input onChange={handleEmailChange} type="email" className="form-style" placeholder="Email" />
-                                                            <i className="input-icon uil uil-at"></i>
-                                                            <button onClick={handleForgotPassword} className="forgotPwdButton">Submit</button>
-                                                        </div>
-                                                    </Popup>
-                                                </p>
-                                            </div>
+        <div style={{ textAlign: "center" }} className="section">
+    <div className="container">
+        <div className="row full-height justify-content-center">
+            <div style={{ width: "100%", textAlign: "center", alignSelf: "center", paddingTop: "2.5rem", paddingBottom: "2.5rem" }} className="col-12 text-center align-self-center">
+                <div style={{ paddingBottom: "2.5rem", paddingTop: "2.5rem", textAlign: "center" }} className="section pb-5 pt-5 pt-sm-2 text-center">
+                    <h6 style={{ marginBottom: "0", paddingBottom: "0.75rem" }}><span>Log In </span><span>Sign Up</span></h6>
+                    <input style={{ marginLeft: "auto", marginRight: "auto" }} className="checkbox" type="checkbox" id="reg-log" name="reg-log" />
+                    <label htmlFor="reg-log"></label>
+                    <div style={{ marginLeft: "auto", marginRight: "auto" }} className="card-3d-wrap mx-auto">
+                        <div className="card-3d-wrapper">
+                            <div className="card-front">
+                                <div className="center-wrap">
+                                    <div style={{ textAlign: "center" }} className="section text-center">
+                                        <h4 style={{ marginBottom: "1rem", paddingBottom: "0.75rem", color: "#008080" }}>Log In</h4>
+                                        <div className="form-group">
+                                            <input style={{ marginBottom: "0.75rem" }} type="email" className="form-style" placeholder="Email" onChange={handleEmailChange} />
                                         </div>
-                                    </div>
-                                    <div className="card-back">
-                                        <div className="center-wrap">
-                                            <div className="section text-center">
-                                                <h4 className="mb-3 pb-3">Sign Up</h4>
-                                                <div className="form-group">
-                                                    <input onChange={handleNameChange} type="text" className="form-style" placeholder="Name" />
-                                                    <i className="input-icon uil uil-user"></i>
-                                                </div>
+                                        <div className="form-group mt-2">
+                                            <input type="password" style={{ marginBottom: "0.75rem" }} className="form-style" placeholder="Password" onChange={handlePasswordChange} />
+                                        </div>
+                                        <div style={{ margin: "1rem 0" }} onClick={loginUser} className="btn m-4 log-in-page-button">Login</div>
+                                        <div style={{ margin: "1rem 0" }} className='separator'>
+                                            <div className='line'></div>
+                                            <div className="text-center or" style={{ color: '#008080' }}>Or</div>
+                                            <div className='line'></div>
+                                        </div>
+                                        <p style={{ marginTop: "1rem", marginBottom: "0" }} className="mb-0 mt-4 text-center">
+                                            <Popup
+                                                trigger={<div style={{ color: "#008080" }} className='forgotPwd'>Forgot Password?</div>}
+                                                position="bottom center"
+                                                className='forgotPassword'>
                                                 <div className="form-group mt-2">
-                                                    <input onChange={handleEmailChange} type="email" className="form-style" placeholder="Email" />
+                                                    <input style={{ marginBottom: "0.75rem", width: '60%'}} onChange={handleEmailChange} type="email" className="form-style" placeholder="Email" />
                                                     <i className="input-icon uil uil-at"></i>
+                                                    <button onClick={handleForgotPassword} className="forgotPwdButton">Submit</button>
                                                 </div>
-                                                <div className="form-group mt-2">
-                                                    <select onChange={handleSecurityQuestion} type="select" className="form-style" style={{ marginBottom: 10 }} placeholder="Security Question">
-                                                        <option value="N/A">Security Question</option>
-                                                        <option value="What is your oldest sibling's middle name?">What is your oldest sibling's middle name?</option>
-                                                        <option value="Where did you meet your spouse?">Where did you meet your spouse?</option>
-                                                        <option value="What was your first car?">What was your first car?</option>
-                                                        <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
-                                                    </select>
-                                                    <i className="input-icon uil uil-lock-access"></i>
-                                                </div>
-                                                <div className="form-group mt-2">
-                                                    <input onChange={handleSecurityAnswer} type='text' className="form-style" placeholder="Security Question Answer" />
-                                                    <i className="input-icon uil uil-comment-alt-question"></i>
-                                                </div>
-                                                <div className="form-group mt-2">
-                                                    <input onChange={handlePasswordChange} type="password" className="form-style" placeholder="Password" />
-                                                    <i className="input-icon uil uil-lock-alt"></i>
-                                                </div>
-                                                <button onClick={signUp} className="btn mt-4 log-in-page-button">Register</button>
-                                            </div>
+                                            </Popup>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card-back">
+                                <div className="center-wrap">
+                                    <div style={{ textAlign: "center" }} className="section">
+                                        <h4 style={{ marginBottom: "0.75rem", paddingBottom: "0.75rem", color: '#008080' }}>Sign Up</h4>
+                                        <div className="form-group">
+                                            <input style={{ marginBottom: "0.75rem" }} onChange={handleNameChange} type="text" className="form-style" placeholder="Name" />
+                                            <i className="input-icon uil uil-user"></i>
                                         </div>
+                                        <div className="form-group">
+                                            <input style={{ marginBottom: "0.75rem" }} onChange={handleEmailChange} type="email" className="form-style" placeholder="Email" />
+                                            <i className="input-icon uil uil-at"></i>
+                                        </div>
+                                        <div className="form-group">
+                                            <select style={{ marginBottom: "0.75rem", width: '90%'}} onChange={handleSecurityQuestion} type="select" className="form-style" placeholder="Security Question">
+                                                <option value="N/A">Security Question</option>
+                                                <option value="What is your oldest sibling's middle name?">What is your oldest sibling's middle name?</option>
+                                                <option value="Where did you meet your spouse?">Where did you meet your spouse?</option>
+                                                <option value="What was your first car?">What was your first car?</option>
+                                                <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
+                                            </select>
+                                            <i className="input-icon uil uil-lock-access"></i>
+                                        </div>
+                                        <div className="form-group">
+                                            <input style={{ marginBottom: "0.75rem" }} onChange={handleSecurityAnswer} type='text' className="form-style" placeholder="Security Question Answer" />
+                                            <i className="input-icon uil uil-comment-alt-question"></i>
+                                        </div>
+                                        <div className="form-group">
+                                            <input style={{ marginBottom: "0.75rem" }} onChange={handlePasswordChange} type="password" className="form-style" placeholder="Password" />
+                                            <i className="input-icon uil uil-lock-alt"></i>
+                                        </div>
+                                        <div style={{ marginTop: "1rem" }} onClick={signUp} className="btn mt-4 log-in-page-button">Register</div>
                                     </div>
                                 </div>
                             </div>
@@ -182,6 +181,8 @@ const Signin = () => {
                 </div>
             </div>
         </div>
+    </div>
+</div>
     )
 }
 
