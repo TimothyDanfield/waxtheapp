@@ -5,6 +5,7 @@ import Shop from "./Shop/Shop";
 import Home from "./Home/Home";
 import Team from "./Team/Team";
 import Signin from "./components/Signin/Signin";
+import Footer from "./Footer/Footer";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route exact path="/shop" element={<Shop />} />
           <Route exact path="/signin" element={<Signin />} />
         </Routes>
+        <Footer />
       </div>
     </Router>
   );

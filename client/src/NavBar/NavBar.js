@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar() {
+  const handleSearchChange = (event) => {
+    if (event.key === "Enter") {
+      console.log(event.target.value);
+    }
+  };
+
   return (
     <nav className="navbar">
       <ul>
@@ -12,6 +18,7 @@ function Navbar() {
             type="text"
             placeholder="Search for products"
             style={{ padding: "5px" }}
+            onChange={handleSearchChange}
           />
         </li>
         <li>
