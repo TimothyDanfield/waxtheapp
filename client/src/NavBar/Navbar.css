@@ -20,6 +20,10 @@
   border: none;
 }
 
+input::placeholder {
+  font-size: 16px;
+}
+
 .navbar li:first-child {
   font-size: 24px;
   font-weight: bold;

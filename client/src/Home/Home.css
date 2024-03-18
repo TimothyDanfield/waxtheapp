@@ -40,16 +40,21 @@
   justify-content: center;
 }
 
-.card1 {
-  background-image: url("client/src/logo.jpg.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+.card1,
+.card2,
+.card3 {
   margin: 10px;
   padding: 0;
   width: 200px;
   height: 200px;
   border: none;
+}
+
+.card1 {
+  background-image: url("client/src/logo.jpg.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .card2 {
@@ -57,11 +62,6 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  margin: 10px;
-  padding: 0;
-  width: 200px;
-  height: 200px;
-  border: none;
 }
 
 .card3 {
@@ -69,11 +69,6 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  margin: 10px;
-  padding: 0;
-  width: 200px;
-  height: 200px;
-  border: none;
 }
 
 @media (max-width: 768px) {
