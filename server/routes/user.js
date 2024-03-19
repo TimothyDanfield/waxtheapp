@@ -15,6 +15,17 @@ router
         res.status(200).send(users)
     })
 
+router.get('/user', async(req, res, next) => {
+    const { email } = req.query
+    console.log(email)
+    if(!email) {
+        return res.status(400).send({Error: "Please provide an email"})
+    }
+    const user = await User.findOne({ email: email })
+        // .select("-password - role -userType")
+    return res.status(200).send(user)
+})
+
 
 router
     .route("/:id")
@@ -72,6 +83,26 @@ router
             next(error)
         }
     })
+
+router.patch('/forgotpassword', async (req, res, next) => {
+    const { email, newPassword, securityAnswer } = req.body
+    console.log(email, newPassword, securityAnswer)
+    if(!(newPassword || securityAnswer)) {
+        return res.status(400).send({ Error: "Please fill out all fields" })
+    }
+
+    const confirmUser = await User.findOne({ email: email })
+    let encryptedPassword = await bcrypt.hash(newPassword, 10)
+    if(confirmUser && (confirmUser.securityAnswer.toLowerCase() === securityAnswer.toLowerCase())) {
+        const user = await User.findByIdAndUpdate(confirmUser._id, {
+            password: encryptedPassword
+        })
+        user.save()
+        res.status(200).send(user)
+    } else {
+        return res.status(401).send({ Error: "Incorrect Security Answer" })
+    }
+})
 
 
 // Login endpoint for already established users

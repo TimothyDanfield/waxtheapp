@@ -20,6 +20,14 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        securityQuestion: {
+            type: String,
+            required: true
+        },
+        securityAnswer: {
+            type: String,
+            required: true
+        },
         role: {
             type: String,
             default: "user"
