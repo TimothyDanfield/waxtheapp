@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Shop.css"; // Import the Shop.css file
 
 function Shop() {
@@ -12,6 +13,9 @@ function Shop() {
       >
         <div className="shop-content"></div>
       </a>
+      <Link to="/livestream" className="livestream">
+        LiveStream
+      </Link>
     </div>
   );
 }
