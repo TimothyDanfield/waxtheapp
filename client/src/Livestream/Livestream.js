@@ -88,13 +88,6 @@ function JoinScreen({ getMeetingAndToken }) {
 }
 
 function ParticipantView(props) {
-  const videoContainerStyle = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "flex-start",
-    height: "100vh",
-    width: "100%",
-  };
   const micRef = useRef(null);
   const { webcamStream, micStream, webcamOn, micOn, isLocal, displayName } =
     useParticipant(props.participantId);
@@ -126,25 +119,23 @@ function ParticipantView(props) {
   }, [micStream, micOn]);
 
   return (
-    <div style={videoContainerStyle} className="participant">
-      <p>
-        Participant: {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
-        {micOn ? "ON" : "OFF"}
-      </p>
+    <div className="participant-container">
+      <div className="participant-info">
+        <p>
+          Participant: {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
+          {micOn ? "ON" : "OFF"}
+        </p>
+      </div>
       <audio ref={micRef} autoPlay playsInline muted={isLocal} />
       {webcamOn && (
         <ReactPlayer
-          //
-          playsinline // extremely crucial prop
+          playsinline
           pip={false}
           light={false}
           controls={false}
           muted={true}
           playing={true}
-          //
           url={videoStream}
-          //
-
           onError={(err) => {
             console.log(err, "participant video error");
           }}

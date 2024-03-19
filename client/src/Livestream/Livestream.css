@@ -13,6 +13,23 @@
   border-radius: 5px;
   text-transform: uppercase;
 }
+.participant-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
+  padding: 20px; /* Add padding */
+}
+
+.participant-info {
+  position: absolute;
+  top: -20%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 10px;
+  border-radius: 5px;
+}
 
 .participant {
   margin-top: 20px;
@@ -30,4 +47,8 @@
 
 .chat {
   margin-top: 20px;
+}
+
+.p {
+  font-weight: 700;
 }
