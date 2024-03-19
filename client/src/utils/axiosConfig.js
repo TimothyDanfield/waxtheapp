@@ -11,17 +11,11 @@ const instance = axios.create({
   timeout: 5000,
 });
 
-// instance.interceptors.request.use((config) => {
-//   config.headers["x-access-token"] = verifyToken();
-//   config.headers["Content-Type"] = "application/json";
-
-//   return config;
-// });
-
 // Add a request interceptor
 instance.interceptors.request.use(
   (config) => {
-    // Modify request config here
+    config.headers["x-access-token"] = verifyToken();
+    config.headers["Content-Type"] = "application/json";
     return config;
   },
   (error) => {
@@ -50,9 +44,9 @@ instance.interceptors.response.use(
     }
     
     // Retry the request after a delay
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(instance(error.config)), 3000); // Retry after 3 seconds
-    });
+    // return new Promise((resolve) => {
+    //   setTimeout(() => resolve(instance(error.config)), 3000); // Retry after 3 seconds
+    // });
   }
 );
 

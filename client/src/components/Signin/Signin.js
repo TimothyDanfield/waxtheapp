@@ -8,14 +8,9 @@ import 'reactjs-popup/dist/index.css'
 import './Signin.css'
 
 const Signin = () => {
-
-    // const [name, setName] = useState("");
-    // const [securityQuestion, setSecurityQuestion] = useState("")
-    // const [securityAnswer, setSecurityAnswer] = useState("")
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState('');
     const [user, setUser] = useState()
-    const [login, setLogin] = useState({
+    const [recoveryEmail, setRecoveryEmail] = useState()
+    const [login, setLogin] = useState({ 
         email: '',
         password: ''
     })
@@ -29,6 +24,10 @@ const Signin = () => {
     })
 
     const navigate = useNavigate()
+
+    const handleRecoveryEmail = (e) => {
+        setRecoveryEmail(e.target.value)
+    }
 
     const handleLogin = (e) => {
         setLogin({
@@ -68,7 +67,7 @@ const Signin = () => {
 
 
     const handleForgotPassword = () => {
-        localStorage.setItem('ForgotPassword', JSON.stringify(login.email))
+        localStorage.setItem('ForgotPassword', JSON.stringify(recoveryEmail))
         navigate('/forgotpassword')
     }
 
@@ -130,7 +129,7 @@ const Signin = () => {
                                                 position="bottom center"
                                                 className='forgotPassword'>
                                                 <div className="form-group mt-2">
-                                                    <input style={{ marginBottom: "0.75rem", width: '60%'}} onChange={handleLogin} type="email" className="form-style" placeholder="Email" />
+                                                    <input style={{ marginBottom: "0.75rem", width: '60%'}} onChange={handleRecoveryEmail} type="email" className="form-style" placeholder="Email" />
                                                     <i className="input-icon uil uil-at"></i>
                                                     <button onClick={handleForgotPassword} className="forgotPwdButton">Submit</button>
                                                 </div>

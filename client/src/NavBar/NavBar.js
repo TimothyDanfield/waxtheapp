@@ -46,12 +46,8 @@ function Navbar() {
           </Link>
         </li>
         <li className="auth">
-          <Link to="/login" className="nav-link">
-            Signup
-          </Link>
-          /
-          <Link to="/login" className="nav-link">
-            Login
+          <Link to="/signin" className="nav-link">
+            Login/Signup
           </Link>
         </li>
       </ul>
