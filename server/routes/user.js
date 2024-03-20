@@ -23,7 +23,11 @@ router.get('/user', async(req, res, next) => {
     }
     const user = await User.findOne({ email: email })
         // .select("-password - role -userType")
-    return res.status(200).send(user)
+    if(!user) {
+        return res.status(400).send({ Error: "No account found" })
+    } else {
+        return res.status(200).send(user)
+    }
 })
 
 
@@ -86,7 +90,6 @@ router
 
 router.patch('/forgotpassword', async (req, res, next) => {
     const { email, newPassword, securityAnswer } = req.body
-    console.log(email, newPassword, securityAnswer)
     if(!(newPassword || securityAnswer)) {
         return res.status(400).send({ Error: "Please fill out all fields" })
     }
@@ -100,7 +103,7 @@ router.patch('/forgotpassword', async (req, res, next) => {
         user.save()
         res.status(200).send(user)
     } else {
-        return res.status(401).send({ Error: "Incorrect Security Answer" })
+        return res.status(401).json({ Error: "Incorrect Security Answer" })
     }
 })
 

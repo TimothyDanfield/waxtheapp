@@ -35,6 +35,7 @@ instance.interceptors.response.use(
     if (error.response) {
       // The request was made and the server responded with a status code
       console.error('Server responded with status:', error.response.status);
+      console.error("Error:", error.response.data)
     } else if (error.request) {
       // The request was made but no response was received
       console.error('No response received from server');

@@ -66,9 +66,14 @@ const Signin = () => {
     };
 
 
-    const handleForgotPassword = () => {
-        localStorage.setItem('ForgotPassword', JSON.stringify(recoveryEmail))
-        navigate('/forgotpassword')
+    const handleForgotPassword = async () => {
+        const findUser = await axios.get(`http://localhost:3001/user/user?email=${recoveryEmail}`)
+        if(findUser) {
+            localStorage.setItem('ForgotPassword', JSON.stringify(recoveryEmail))
+            navigate('/forgotpassword')
+        } else {
+            toast.error("No account associated with that email")
+        }
     }
 
 

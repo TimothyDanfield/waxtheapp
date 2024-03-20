@@ -14,6 +14,7 @@ import Signin from "./components/Signin/Signin";
 import Footer from "./Footer/Footer";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import LiveStream from "./Livestream/Livestream";
+import Profile from "./Profile/Profile";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route exact path="/signin" element={<Signin />} />
           <Route exact path="/forgotpassword" element={<ForgotPassword />} />
           <Route exact path="/livestream" element={<LiveStream />} />
+          <Route exact path="/profile" element={<Profile />} />
         </Routes>
         <Footer />
       </div>

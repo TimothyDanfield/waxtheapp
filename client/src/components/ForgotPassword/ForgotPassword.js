@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import axios from '../../utils/axiosConfig'
 import { useNavigate } from 'react-router-dom'
 import "./ForgotPassword.css"
+import toast, { Toaster } from 'react-hot-toast'
 
 const ForgotPassword = () => {
     const [user, setUser] = useState('')
@@ -28,14 +29,23 @@ const ForgotPassword = () => {
 
     const handleSubmitForm = async (e) => {
         e.preventDefault();
-        console.log(email, securityAnswer, newPassword)
-        await axios.patch(`http://localhost:3001/user/forgotpassword?email=${email}`, {
+
+        const updateUser = await axios.patch(`http://localhost:3001/user/forgotpassword?email=${email}`, {
             email,
             securityAnswer,
             newPassword
         })
-        localStorage.clear()
-        navigate('/signin')
+        if (updateUser.status === 200) {
+            localStorage.clear()
+            navigate('/signin')
+        } else {
+            toast.error("Incorrect security answer")
+        }
+
+
+
+
+
     };
 
     const handleSecurityAnswer = (e) => {
@@ -50,10 +60,11 @@ const ForgotPassword = () => {
         <div style={{ paddingTop: '25%' }}>
             <form className='forgotPwdForm'>
                 <h5>{user && user.securityQuestion}</h5>
-                <input className='securityAnswer' placeholder='Your answer' value={securityAnswer} onChange={handleSecurityAnswer}></input>
-                <input placeholder='New password' value={newPassword} onChange={handlePasswordChange}></input>
+                <input className='forgotPwdItem' placeholder='Your answer' value={securityAnswer} onChange={handleSecurityAnswer}></input>
+                <input className="forgotPwdItem" placeholder='New password' value={newPassword} onChange={handlePasswordChange}></input>
                 <button className='forgotPwdButton' onClick={handleSubmitForm}>Submit</button>
             </form>
+            <Toaster />
         </div>
     )
 }
