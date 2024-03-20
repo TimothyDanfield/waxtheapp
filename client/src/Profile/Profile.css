@@ -17,7 +17,7 @@
   justify-content: space-around;
 }
 
-.profileHeaders h2 {
+.profileHeaders h3 {
   cursor: pointer;
   width: 45%;
   border-radius: 5px;
@@ -29,6 +29,7 @@
   flex-direction: column;
   justify-content: space-around;
   height: 50%;
+  min-height: 250px;
 }
 
 .profileInfo {
@@ -44,6 +45,8 @@
 }
 
 .applySection {
+  text-decoration: none;
+  color: #008080;
   margin: 0 auto;
   height: 30%;
   display: flex;
@@ -52,6 +55,14 @@
 
 .applySection h3 {
   cursor: pointer;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.applySection h3:hover {
+  background-color: #000000;
+  color: #008080;
+  box-shadow: 0 8px 24px 0 rgba(16, 39, 112, .2);
 }
 
 .livestream {
@@ -62,5 +73,14 @@
   top: 59%;
   right: 0;
   transform: translateY(-50%);
-  margin-right: 80px; /* Adjust this value as needed */
+  margin-right: 80px;
+  /* Adjust this value as needed */
+}
+
+.orderHistory {
+  text-align: center;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
