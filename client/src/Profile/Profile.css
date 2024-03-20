@@ -1,0 +1,55 @@
+.profilePage {
+    background-color: #2b2e38;
+    height: 40vh;
+    width: 90%;
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-top: 50px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.profileHeaders {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.profileHeaders h2 {
+    cursor: pointer;
+    width: 45%;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.infoSection {
+    display: flex;  
+    flex-direction: column;
+    justify-content: space-around;
+    height: 50%;
+}
+
+.profileInfo {
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+}
+
+.separatorLine {
+    width: 90%;
+    margin: 0 auto;
+    border: 1px solid #008080;
+}
+
+.applySection {
+    margin: 0 auto;
+    height: 30%;
+    display: flex;
+    align-items: center;
+}
+
+.applySection h3 {
+    cursor: pointer;
+}
