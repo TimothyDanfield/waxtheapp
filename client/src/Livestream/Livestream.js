@@ -10,34 +10,21 @@ import { authToken, createMeeting } from "./API";
 import ReactPlayer from "react-player";
 import "./Livestream.css";
 
-function AttendessCount() {
-  const { participants } = useMeeting();
-
-  const attendeesCount = useMemo(() => {
-    const attendees = [...participants.values()].filter((participant) => {
-      return participant.mode === "VIEWER";
-    });
-    return attendees.length || 0;
-  }, [participants]);
-
-  return (
-    <>
-      <p>Number of Attendess: {attendeesCount}</p>
-    </>
-  );
-}
-
 function ChatView() {
   // destructure publish method from usePubSub hook
-  const { publish, messages } = usePubSub("CHAT", {
-    onMessageReceived: (message) => {
-      window.alert(message.senderName + "says" + message.message);
-    },
-  });
+  const { publish, messages } = usePubSub("CHAT");
 
+  //   onMessageReceived: (message) => {
+  //     window.alert(message.senderName + "says" + message.message);
+  //   };
   const [message, setMessage] = useState("");
 
-  const handleSendMessage = () => {};
+  const handleSendMessage = () => {
+    // Sending the Message using the publish method
+    publish(message, { persist: true });
+    // Clearing the message input
+    setMessage("");
+  };
 
   return (
     <>
@@ -58,6 +45,23 @@ function ChatView() {
         }}
       />
       <button onClick={handleSendMessage}>Send Message</button>
+    </>
+  );
+}
+
+function AttendessCount() {
+  const { participants } = useMeeting();
+
+  const attendeesCount = useMemo(() => {
+    const attendees = [...participants.values()].filter((participant) => {
+      return participant.mode === "VIEWER";
+    });
+    return attendees.length || 0;
+  }, [participants]);
+
+  return (
+    <>
+      <p>Number of Attendess: {attendeesCount}</p>
     </>
   );
 }
@@ -228,6 +232,7 @@ function App() {
   ) : (
     <JoinScreen getMeetingAndToken={getMeetingAndToken} />
   );
+  //   <ChatView />;
 }
 
 export default App;

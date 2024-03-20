@@ -1,3 +1,14 @@
+@keyframes spinIn {
+  0% {
+    transform: rotateY(90deg) scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateY(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
 .home {
   padding: 20px;
 }
@@ -68,6 +79,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  animation: spinIn 1s ease-in-out;
 }
 
 .card1,
