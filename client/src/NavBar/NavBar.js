@@ -50,6 +50,11 @@ function Navbar() {
             Login/Signup
           </Link>
         </li>
+        <li>
+          <Link to="/profile" className="nav-link">
+            Profile
+          </Link>
+        </li>
       </ul>
     </nav>
   );
