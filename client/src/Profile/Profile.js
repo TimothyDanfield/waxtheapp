@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Products from "../Products/Products";
 import "./Profile.css";
 
 const Profile = () => {
   const [selected, setSelected] = useState("Info");
-
-  const navigate = useNavigate()
 
   return (
     <div className="profilePage">
@@ -53,6 +52,10 @@ const Profile = () => {
       <Link to="/livestream" className="livestream">
         Go Live
       </Link>
+      <div>
+        <Products />
+      </div>
+      
     </div>
   );
 };

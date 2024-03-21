@@ -15,7 +15,7 @@ import Footer from "./Footer/Footer";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import LiveStream from "./Livestream/Livestream";
 import Profile from "./Profile/Profile";
-import Apply from "./Apply/Apply";
+import Products from "./Products/Products";
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
           <Route exact path="/forgotpassword" element={<ForgotPassword />} />
           <Route exact path="/livestream" element={<LiveStream />} />
           <Route exact path="/profile" element={<Profile />} />
-          <Route exact path="/apply" element={<Apply />} />
+          <Route exact path="/product" element={<Products />} />
         </Routes>
         <Footer />
       </div>

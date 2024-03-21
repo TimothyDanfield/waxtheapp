@@ -149,7 +149,6 @@ router.post("/login", validateBodyParams("email", "password"), async (req, res, 
 router.post("/register", async (req, res, next) => {
     const { name, email, securityQuestion, securityAnswer, password } = req.body
     console.log(name)
-
     try {
         const checkForUser = await User.findOne({ email }) //checks for existing user
 
@@ -172,7 +171,7 @@ router.post("/register", async (req, res, next) => {
             return res.status(201).send(newUser)
         }
     } catch (error) {
-        next(error)
+        return res.status(500).send(error)
     }
 })
 
