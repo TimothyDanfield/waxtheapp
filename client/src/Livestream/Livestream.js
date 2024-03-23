@@ -28,12 +28,12 @@ function ChatView() {
 
   return (
     <>
-      <div>
+      <div className="message-box">
         <p>Messages: </p>
         {messages.map((message) => {
           return (
             <p>
-              {message.senderName} says {message.message}
+              {message.senderName}: {message.message}
             </p>
           );
         })}
@@ -44,7 +44,9 @@ function ChatView() {
           setMessage(e.target.value);
         }}
       />
-      <button onClick={handleSendMessage}>Send Message</button>
+      <button className="send-button1" onClick={handleSendMessage}>
+        Send Message
+      </button>
     </>
   );
 }
@@ -228,11 +230,11 @@ function App() {
       token={authToken}
     >
       <MeetingView meetingId={meetingId} onMeetingLeave={onMeetingLeave} />
+      <ChatView />;
     </MeetingProvider>
   ) : (
     <JoinScreen getMeetingAndToken={getMeetingAndToken} />
   );
-  //   <ChatView />;
 }
 
 export default App;
