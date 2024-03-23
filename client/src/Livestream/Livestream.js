@@ -29,24 +29,28 @@ function ChatView() {
   return (
     <>
       <div className="message-box">
-        <p>Messages: </p>
-        {messages.map((message) => {
-          return (
-            <p>
-              {message.senderName}: {message.message}
-            </p>
-          );
-        })}
+        <p className="message-header">Messages:</p>
+        <div className="message-list">
+          {messages.map((message, index) => (
+            <div key={index} className="message">
+              <span className="sender">{message.senderName}: </span>
+              <span className="message-text">{message.message}</span>
+            </div>
+          ))}
+        </div>
       </div>
-      <input
-        value={message}
-        onChange={(e) => {
-          setMessage(e.target.value);
-        }}
-      />
-      <button className="send-button1" onClick={handleSendMessage}>
-        Send Message
-      </button>
+      <div className="input-container">
+        <input
+          className="message-input"
+          value={message}
+          onChange={(e) => {
+            setMessage(e.target.value);
+          }}
+        />
+        <button className="send-button" onClick={handleSendMessage}>
+          Send Message
+        </button>
+      </div>
     </>
   );
 }
@@ -132,21 +136,24 @@ function ParticipantView(props) {
           {micOn ? "ON" : "OFF"}
         </p>
       </div>
+      <div className="chat-and-stream">
+        {webcamOn && (
+          <ReactPlayer
+            playsinline
+            pip={false}
+            light={false}
+            controls={false}
+            muted={true}
+            playing={true}
+            url={videoStream}
+            onError={(err) => {
+              console.log(err, "participant video error");
+            }}
+          />
+        )}
+      </div>
+
       <audio ref={micRef} autoPlay playsInline muted={isLocal} />
-      {webcamOn && (
-        <ReactPlayer
-          playsinline
-          pip={false}
-          light={false}
-          controls={false}
-          muted={true}
-          playing={true}
-          url={videoStream}
-          onError={(err) => {
-            console.log(err, "participant video error");
-          }}
-        />
-      )}
     </div>
   );
 }
@@ -206,17 +213,18 @@ function MeetingView(props) {
 
 function App() {
   const [meetingId, setMeetingId] = useState(null);
+  const [joined, setJoined] = useState(false);
 
-  //Getting the meeting id by calling the api we just wrote
   const getMeetingAndToken = async (id) => {
     const meetingId =
       id == null ? await createMeeting({ token: authToken }) : id;
     setMeetingId(meetingId);
+    setJoined(true);
   };
 
-  //This will set Meeting Id to null when meeting is left or ended
   const onMeetingLeave = () => {
     setMeetingId(null);
+    setJoined(false);
   };
 
   return authToken && meetingId ? (
@@ -230,7 +238,7 @@ function App() {
       token={authToken}
     >
       <MeetingView meetingId={meetingId} onMeetingLeave={onMeetingLeave} />
-      <ChatView />;
+      {joined && <ChatView />}
     </MeetingProvider>
   ) : (
     <JoinScreen getMeetingAndToken={getMeetingAndToken} />

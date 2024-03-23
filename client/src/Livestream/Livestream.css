@@ -18,13 +18,13 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  height: 100%;
-  padding: 20px; /* Add padding */
+  height: 150%;
+  padding: 20px;
 }
 
 .participant-info {
   position: absolute;
-  top: -20%;
+  top: -10%;
   transform: translateY(-50%);
   background-color: rgba(255, 255, 255, 0.7);
   padding: 10px;
@@ -54,21 +54,49 @@
 }
 
 .message-box {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   padding: 10px;
-  margin-bottom: 10px;
-  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  max-width: 600px;
 }
 
-.send-button1 {
-  padding: 10px 20px;
-  font-size: 16px;
+.message-header {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.message-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.message {
+  margin-bottom: 5px;
+}
+
+.sender {
+  font-weight: bold;
+}
+
+.message-input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-right: 5px;
+}
+
+.send-button {
+  padding: 5px 10px;
   background-color: #007bff;
-  color: white;
+  color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 3px;
   cursor: pointer;
 }
 
-.send-button1:hover {
+.send-button:hover {
   background-color: #0056b3;
 }

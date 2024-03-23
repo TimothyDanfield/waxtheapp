@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./Home.css";
 
 const Home = () => {
@@ -20,11 +21,13 @@ const Home = () => {
       <div className="live-now-container">
         <h1>Live Now</h1>
       </div>
-      <div className="live-now">
-        <div className="card1"></div>
-        <div className="card2"></div>
-        <div className="card3"></div>
-      </div>
+      <Link to="/livestream">
+        <div className="live-now">
+          <div className="card1"></div>
+          <div className="card2"></div>
+          <div className="card3"></div>
+        </div>
+      </Link>
       <div className="upcoming-lives-container">
         <h1>Upcoming</h1>
       </div>
