@@ -109,15 +109,3 @@
   background-repeat: no-repeat;
   background-position: center;
 }
-
-@media (max-width: 768px) {
-  .card {
-    flex: 0 0 calc(50% - 20px);
-  }
-}
-
-@media (max-width: 480px) {
-  .card {
-    flex: 0 0 100%;
-  }
-}

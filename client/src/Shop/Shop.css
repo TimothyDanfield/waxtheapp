@@ -40,3 +40,11 @@
 .shop-content p {
   margin-bottom: 0;
 }
+
+@media (max-width: 768px) {
+  .shop-box {
+    width: calc(50% - 16px); /* 2 columns on smaller screens */
+    height: 200px; /* Adjust height as needed */
+    margin: 8px;
+  }
+}

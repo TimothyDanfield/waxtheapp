@@ -73,19 +73,19 @@
 .applySection h3:hover {
   background-color: #000000;
   color: #008080;
-  box-shadow: 0 8px 24px 0 rgba(16, 39, 112, .2);
+  box-shadow: 0 8px 24px 0 rgba(16, 39, 112, 0.2);
 }
 
 .livestream {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  position: fixed;
   top: 59%;
   right: 0;
   transform: translateY(-50%);
   margin-right: 80px;
-  /* Adjust this value as needed */
+  margin-left: -25px;
+  max-width: 57px;
 }
 
 .orderHistory {

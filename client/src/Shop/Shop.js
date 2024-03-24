@@ -13,9 +13,6 @@ function Shop() {
       >
         <div className="shop-content"></div>
       </a>
-      <Link to="/livestream" className="livestream">
-        LiveStream
-      </Link>
     </div>
   );
 }
