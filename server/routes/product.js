@@ -37,8 +37,6 @@ router
         }
 
         if (!req.file) {
-            console.log("image")
-
             return res.status(400).send({ Error: "Please include a product image" })
         }
 
@@ -51,7 +49,6 @@ router
                 return res.status(409).send({ Error: "A product with that name already exists" })
             } else {
                 try {
-                    console.log(req.user)
                     const b64 = Buffer.from(req.file.buffer).toString("base64")
                     let dataURI = "data:" + req.file.mimetype + ";base64," + b64
                     const imageResult = await cloudinary.uploader.upload(dataURI, {
@@ -196,7 +193,7 @@ router
         const userId = req.user.user_id;
 
         const checkIsAdmin = await User.findById({ _id: userId });
-        console.log(checkIsAdmin)
+
         if (checkIsAdmin.role !== "admin") {
             return res.status(401).json({ error: "Not Authorized." });
         } else if (!id) {

@@ -31,6 +31,28 @@ const userSchema = new mongoose.Schema(
         role: {
             type: String,
             default: "user"
+        },
+        liveID: {
+            type: String,
+            default: null,
+        },
+        photo: {
+            name: {
+                type: String,
+                required: true,
+            },
+            path: {
+                type: String,
+                required: true,
+            },
+            contentType: {
+                type: String,
+                required: true,
+            },
+            cloudinaryId: {
+                type: String,
+                required: true,
+            },
         }
     },
     { timestamps: true }

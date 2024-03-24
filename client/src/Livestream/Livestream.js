@@ -7,7 +7,9 @@ import {
   usePubSub,
 } from "@videosdk.live/react-sdk";
 import { authToken, createMeeting } from "./API";
+import axios from '../utils/axiosConfig'
 import ReactPlayer from "react-player";
+import toast, { Toaster } from "react-hot-toast";
 import "./Livestream.css";
 
 function ChatView() {
@@ -73,26 +75,35 @@ function AttendessCount() {
 }
 
 function JoinScreen({ getMeetingAndToken }) {
-  const [meetingId, setMeetingId] = useState(null);
-  const onClick = async () => {
+  const [meetingId, setMeetingId] = useState(localStorage.getItem("LiveID"));
+  const createMeeting = async () => {
     await getMeetingAndToken(meetingId);
   };
+
+  const joinMeeting = async () => {
+    if (meetingId === null) {
+      toast.error("Invalid meeting ID")
+      return
+    }
+    await getMeetingAndToken(meetingId)
+  }
   return (
     <div>
-      <input
+      {/* <input
         type="text"
         placeholder="Enter Meeting Id"
         onChange={(e) => {
           setMeetingId(e.target.value);
         }}
-      />
-      <button className="button" onClick={onClick}>
+      /> */}
+      <button className="button" onClick={joinMeeting}>
         Join
       </button>
       {" or "}
-      <button className="button" onClick={onClick}>
+      <button className="button" onClick={createMeeting}>
         Create Meeting
       </button>
+      <Toaster />
     </div>
   );
 }
@@ -160,9 +171,16 @@ function ParticipantView(props) {
 
 function Controls() {
   const { leave, toggleMic, toggleWebcam } = useMeeting();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("User")))
   return (
     <div>
-      <button onClick={() => leave()}>Leave</button>
+      <button onClick={async () => {
+        await axios.patch(`http://localhost:3001/user/${user._id}`, {
+          liveID: null
+        })
+        localStorage.removeItem("LiveID")
+        leave()
+      }}>Leave</button>
       <button onClick={() => toggleMic()}>toggleMic</button>
       <button onClick={() => toggleWebcam()}>toggleWebcam</button>
     </div>
@@ -170,7 +188,9 @@ function Controls() {
 }
 
 function MeetingView(props) {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("User")))
   const [joined, setJoined] = useState(null);
+
   //Get the method which will be used to join the meeting.
   //We will also get the participants list to display all participants
   const { join, participants } = useMeeting({
@@ -183,7 +203,17 @@ function MeetingView(props) {
       props.onMeetingLeave();
     },
   });
-  const joinMeeting = () => {
+  const joinMeeting = async () => {
+    if (user.role === "admin" || user.role === "seller") {
+      const updateUser = await axios.patch(`http://localhost:3001/user/${user._id}`, {
+        liveID: props.meetingId
+      })
+      if (updateUser) {
+        setJoined("JOINING")
+        join()
+        return
+      }
+    }
     setJoined("JOINING");
     join();
   };
@@ -214,10 +244,15 @@ function MeetingView(props) {
 function App() {
   const [meetingId, setMeetingId] = useState(null);
   const [joined, setJoined] = useState(false);
+  const [user, setUser] = useState("")
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("User")))
+  }, [])
 
   const getMeetingAndToken = async (id) => {
     const meetingId =
-      id == null ? await createMeeting({ token: authToken }) : id;
+      id === null ? await createMeeting({ token: authToken }) : id;
     setMeetingId(meetingId);
     setJoined(true);
   };
@@ -233,7 +268,7 @@ function App() {
         meetingId,
         micEnabled: false,
         webcamEnabled: false,
-        name: "Timothy",
+        name: user.name,
       }}
       token={authToken}
     >

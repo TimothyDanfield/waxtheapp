@@ -1,10 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Products from "../Products/Products";
+import fileAxios from '../utils/axiosFileConfig'
+import axios from '../utils/axiosConfig'
+import toast, { Toaster } from 'react-hot-toast'
 import "./Profile.css";
 
 const Profile = () => {
   const [selected, setSelected] = useState("Info");
+  const [user, setUser] = useState()
+
+  const getUser = async () => {
+    const userInfo = await axios.get(`http://localhost:3001/user/${JSON.parse(localStorage.getItem("User"))._id}`)
+    setUser(userInfo.data)
+  }
+
+  useEffect(() => {
+    getUser()
+  }, [])
+
+  console.log(user)
+
+  const uploadImage = async (e) => {
+    const photo = e.target.files[0]
+    const form = new FormData()
+    form.append("file", photo)
+
+    await fileAxios.patch(`http://localhost:3001/user/${user._id}`, form)
+      .then((res) => {
+        getUser()
+        localStorage.setItem("User", JSON.stringify(user))
+        toast.success("Image uploaded")
+      })
+      .catch((error) => {
+        toast.error("Error uploading image")
+      })
+  }
 
   return (
     <div className="profilePage">
@@ -32,11 +63,15 @@ const Profile = () => {
         <div className="infoSection">
           <div className="profileInfo">
             <h4>Name:</h4>
-            <h4>Nathan</h4>
+            <h4>{user?.name}</h4>
           </div>
           <div className="profileInfo">
             <h4>Email:</h4>
-            <h4>nathan.grandinette@gmail.com</h4>
+            <h4>{user?.email}</h4>
+          </div>
+          <div className="profileInfo">
+            <h4>Logo:</h4>
+            {user?.photo ? <img src={user.photo.path}/> : <input type="file" onChange={(e) => uploadImage(e)}/>}
           </div>
         </div>
         : 
@@ -55,7 +90,7 @@ const Profile = () => {
       <div>
         <Products />
       </div>
-      
+      <Toaster />
     </div>
   );
 };

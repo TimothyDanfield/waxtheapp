@@ -44,11 +44,10 @@ const Products = () => {
     }
 
     const deleteProduct = async (_id) => {
-        console.log(_id)
         await axios.delete(`http://localhost:3001/product/${_id}`)
             .then((res) => {
-                console.log(res)
                 if (res.status === 200) {
+                    fetchProducts()
                     toast.success("Product deleted")
                 }
             })
@@ -70,6 +69,7 @@ const Products = () => {
 
         await fileAxios.post('http://localhost:3001/product', form)
             .then((res) => {
+                fetchProducts()
                 toast.success("Product created")
             })
             .catch((error) => {

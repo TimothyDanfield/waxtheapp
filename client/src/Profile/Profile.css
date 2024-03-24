@@ -38,6 +38,17 @@
   justify-content: space-between;
 }
 
+.profileInfo input {
+  width: 165px;
+  align-self: center;
+}
+
+.profileInfo img {
+  border-radius: 5px;
+  width: 50px;
+  height: 50px;
+}
+
 .separatorLine {
   width: 90%;
   margin: 0 auto;
