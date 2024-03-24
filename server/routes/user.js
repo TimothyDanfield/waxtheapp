@@ -102,7 +102,7 @@ router
     })
 
     // Deletes a user....cannot delete main admin account
-    .delete(async (req, res, next) => {
+    .delete(verifyToken, async (req, res, next) => {
         const { id } = req.params
 
         if (!id) {

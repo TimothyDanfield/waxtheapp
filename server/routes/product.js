@@ -26,7 +26,7 @@ router
         }
     })
 
-    .post(verifyToken, upload.single("file"), async (req, res, next) => {
+    .post(verifyToken, verifyRole(["admin", "seller"]), upload.single("file"), async (req, res, next) => {
         const { name, price, description } = req.body
         if (
             name === "undefined" ||
@@ -100,7 +100,7 @@ router
         }
     })
 
-    .patch(async (req, res, next) => {
+    .patch(verifyToken, verifyRole(["admin", "seller"]), async (req, res, next) => {
         const { id } = req.params
         const userId = req.user.user_id
         const { name, price, description } = req.body
@@ -188,7 +188,7 @@ router
         }
     })
 
-    .delete(verifyToken, async (req, res, next) => {
+    .delete(verifyToken, verifyRole(["admin", "seller"]), async (req, res, next) => {
         const { id } = req.params;
         const userId = req.user.user_id;
 

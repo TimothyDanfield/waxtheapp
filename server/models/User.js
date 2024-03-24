@@ -39,19 +39,15 @@ const userSchema = new mongoose.Schema(
         photo: {
             name: {
                 type: String,
-                required: true,
             },
             path: {
                 type: String,
-                required: true,
             },
             contentType: {
                 type: String,
-                required: true,
             },
             cloudinaryId: {
                 type: String,
-                required: true,
             },
         }
     },

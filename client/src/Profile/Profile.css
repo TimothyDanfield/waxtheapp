@@ -76,15 +76,23 @@
   box-shadow: 0 8px 24px 0 rgba(16, 39, 112, 0.2);
 }
 
+.applySectionAlternate {
+  text-decoration: none;
+  background-color: transparent;
+  color: #008080;
+  height: 30%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+  flex-direction: row;
+}
+
 .livestream {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  top: 59%;
-  right: 0;
-  transform: translateY(-50%);
-  margin-right: 80px;
-  margin-left: -25px;
   max-width: 57px;
 }
 
