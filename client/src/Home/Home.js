@@ -35,6 +35,7 @@ const Home = () => {
       <div className="live-now-container">
         <h1>Live Now</h1>
       </div>
+      {users?.length > 0 ?
       <div className="live-now">
         {users && users.map((user) => {
           return (
@@ -47,17 +48,15 @@ const Home = () => {
             </Link>
           )
         })}
-        {/* <div className="card1"></div>
-          <div className="card2"></div>
-          <div className="card3"></div> */}
       </div>
+      : 
+      <h3 style={{height: "250px", display: "flex", alignItems: "center", justifyContent: "center"}}>
+        There are currently no live sessions...
+      </h3>}
       <div className="upcoming-lives-container">
         <h1>Upcoming</h1>
       </div>
       <div className="live-now">
-        {/* <div className="card1"></div>
-        <div className="card2"></div>
-        <div className="card3"></div> */}
       </div>
       <div className={`loupe ${showLoupe ? "active" : ""}`}></div>
     </div>

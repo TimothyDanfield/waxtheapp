@@ -3,6 +3,7 @@
   color: white;
   padding: 10px;
   margin-bottom: 20px;
+  height: 100px;
   text-align: center;
   padding-left: 20px;
 }
@@ -24,7 +25,7 @@ input::placeholder {
   font-size: 16px;
 }
 
-.navbar li:first-child {
+.companyName {
   font-size: 24px;
   font-weight: bold;
   color: #ffcc00;
@@ -70,5 +71,40 @@ input::placeholder {
 
   .auth {
     margin-top: 20px;
+  }
+}
+
+.links-mobile {
+  position: fixed;
+  right: 0;
+  top: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around !important;
+  align-content: space-around;
+  width: 50%;
+  height: 300px;
+  z-index: 9999;
+  background-color: rgba(15, 15, 15, 0.3);
+  -webkit-animation: dropdown forwards 1s;
+  -moz-animation: dropdown forwards 1s;
+  -o-animation: dropdown forwards 1s;
+
+}
+
+@keyframes dropdown {
+  0% {
+      height: 0px;
+      opacity: 0;
+  }
+
+  50% {
+    height: 150px;
+    opacity: 0;
+  }
+
+  100% {
+      height: 300px;
+      opacity: 1;
   }
 }
