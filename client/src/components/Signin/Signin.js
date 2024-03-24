@@ -45,7 +45,6 @@ const Signin = () => {
 
   // Normal login functionality
   const loginUser = async (e) => {
-    e.preventDefault();
     if (!login.email || !login.password) {
       toast.error("Please fill out required information");
       return;
@@ -56,10 +55,9 @@ const Signin = () => {
         email: login.email,
         password: login.password,
       });
-      setUser(newUser);
       localStorage.setItem("User", JSON.stringify(newUser.data.user));
       localStorage.setItem("Token", JSON.stringify(newUser.data.token));
-      navigate("/profile");
+      window.location.reload()
     } catch (error) {
       console.log("test");
       toast.error("Incorrect username or password");
