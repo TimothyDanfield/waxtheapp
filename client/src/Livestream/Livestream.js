@@ -7,14 +7,25 @@ import {
   usePubSub,
 } from "@videosdk.live/react-sdk";
 import { authToken, createMeeting } from "./API";
-import axios from '../utils/axiosConfig'
+import axios from "../utils/axiosConfig";
 import ReactPlayer from "react-player";
 import toast, { Toaster } from "react-hot-toast";
 import "./Livestream.css";
 
+function BidButton({ increaseBid, decreaseBid, bidAmount }) {
+  return (
+    <div className="bid-button">
+      <button onClick={decreaseBid}>-</button>
+      <span>Bid:{bidAmount}</span>
+      <button onClick={increaseBid}>+</button>
+    </div>
+  );
+}
+
 function ChatView() {
   // destructure publish method from usePubSub hook
   const { publish, messages } = usePubSub("CHAT");
+  const [bidAmount, setBidAmount] = useState(0);
 
   //   onMessageReceived: (message) => {
   //     window.alert(message.senderName + "says" + message.message);
@@ -28,10 +39,22 @@ function ChatView() {
     setMessage("");
   };
 
+  const increaseBid = () => {
+    setBidAmount((prevBidAmount) => prevBidAmount + 1);
+  };
+
+  const decreaseBid = () => {
+    if (bidAmount > 0) {
+      setBidAmount((prevBidAmount) => prevBidAmount - 1);
+    }
+  };
+
   return (
     <>
+      <div className="attendees-count">
+        <AttendessCount />
+      </div>
       <div className="message-box">
-        <p className="message-header">Messages:</p>
         <div className="message-list">
           {messages.map((message, index) => (
             <div key={index} className="message">
@@ -40,8 +63,18 @@ function ChatView() {
             </div>
           ))}
         </div>
+        <div className="sale-items-button-container">
+          <button className="sale-items-button">Sale Items</button>
+        </div>
       </div>
       <div className="input-container">
+        <div className="bid-input">
+          <BidButton
+            increaseBid={increaseBid}
+            decreaseBid={decreaseBid}
+            bidAmount={bidAmount}
+          />
+        </div>
         <input
           className="message-input"
           value={message}
@@ -82,11 +115,11 @@ function JoinScreen({ getMeetingAndToken }) {
 
   const joinMeeting = async () => {
     if (meetingId === null) {
-      toast.error("Invalid meeting ID")
-      return
+      toast.error("Invalid meeting ID");
+      return;
     }
-    await getMeetingAndToken(meetingId)
-  }
+    await getMeetingAndToken(meetingId);
+  };
   return (
     <div>
       {/* <input
@@ -150,6 +183,7 @@ function ParticipantView(props) {
       <div className="chat-and-stream">
         {webcamOn && (
           <ReactPlayer
+            className="chat-and-stream"
             playsinline
             pip={false}
             light={false}
@@ -171,16 +205,20 @@ function ParticipantView(props) {
 
 function Controls() {
   const { leave, toggleMic, toggleWebcam } = useMeeting();
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("User")))
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("User")));
   return (
     <div>
-      <button onClick={async () => {
-        await axios.patch(`http://localhost:3001/user/${user._id}`, {
-          liveID: null
-        })
-        localStorage.removeItem("LiveID")
-        leave()
-      }}>Leave</button>
+      <button
+        onClick={async () => {
+          await axios.patch(`http://localhost:3001/user/${user._id}`, {
+            liveID: null,
+          });
+          localStorage.removeItem("LiveID");
+          leave();
+        }}
+      >
+        Leave
+      </button>
       <button onClick={() => toggleMic()}>toggleMic</button>
       <button onClick={() => toggleWebcam()}>toggleWebcam</button>
     </div>
@@ -188,7 +226,7 @@ function Controls() {
 }
 
 function MeetingView(props) {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("User")))
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("User")));
   const [joined, setJoined] = useState(null);
 
   //Get the method which will be used to join the meeting.
@@ -205,13 +243,16 @@ function MeetingView(props) {
   });
   const joinMeeting = async () => {
     if (user.role === "admin" || user.role === "seller") {
-      const updateUser = await axios.patch(`http://localhost:3001/user/${user._id}`, {
-        liveID: props.meetingId
-      })
+      const updateUser = await axios.patch(
+        `http://localhost:3001/user/${user._id}`,
+        {
+          liveID: props.meetingId,
+        }
+      );
       if (updateUser) {
-        setJoined("JOINING")
-        join()
-        return
+        setJoined("JOINING");
+        join();
+        return;
       }
     }
     setJoined("JOINING");
@@ -220,9 +261,8 @@ function MeetingView(props) {
 
   return (
     <div className="container">
-      <h3>Meeting Id: {props.meetingId}</h3>
       {joined && joined == "JOINED" ? (
-        <div>
+        <div className="button-options">
           <Controls />
           {/* //For rendering all the participants in the meeting */}
           {[...participants.keys()].map((participantId) => (
@@ -244,11 +284,11 @@ function MeetingView(props) {
 function App() {
   const [meetingId, setMeetingId] = useState(null);
   const [joined, setJoined] = useState(false);
-  const [user, setUser] = useState("")
+  const [user, setUser] = useState("");
 
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem("User")))
-  }, [])
+    setUser(JSON.parse(localStorage.getItem("User")));
+  }, []);
 
   const getMeetingAndToken = async (id) => {
     const meetingId =
@@ -272,8 +312,14 @@ function App() {
       }}
       token={authToken}
     >
-      <MeetingView meetingId={meetingId} onMeetingLeave={onMeetingLeave} />
-      {joined && <ChatView />}
+      <div className="meeting-container">
+        <div className="video-container">
+          <MeetingView meetingId={meetingId} onMeetingLeave={onMeetingLeave} />
+        </div>
+        <div className="chat-container">
+          <ChatView />
+        </div>
+      </div>
     </MeetingProvider>
   ) : (
     <JoinScreen getMeetingAndToken={getMeetingAndToken} />

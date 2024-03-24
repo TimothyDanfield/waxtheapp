@@ -24,7 +24,7 @@
 
 .participant-info {
   position: absolute;
-  top: -10%;
+  top: -1%;
   transform: translateY(-50%);
   background-color: rgba(255, 255, 255, 0.7);
   padding: 10px;
@@ -53,27 +53,75 @@
   font-weight: 700;
 }
 
-.message-box {
-  background-color: #f8f8f8;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  max-width: 600px;
+/* .button-options {
+  display: flex;
+  flex-direction: column-reverse;
+} */
+
+.chat-and-stream {
+  width: 120%;
+  height: 120%;
 }
 
-.message-header {
-  font-weight: bold;
-  margin-bottom: 10px;
+.chat-and-stream video {
+  width: 120% !important;
+  height: 120% !important;
+  margin-top: 20px !important;
+}
+
+.meeting-container {
+  display: flex;
+}
+
+.video-container {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.chat-container {
+  flex: 1;
+}
+
+.message-box {
+  height: 100%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.message-input {
+  flex: 1;
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.send-button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
 .message-list {
-  max-height: 200px;
+  max-height: 80%;
   overflow-y: auto;
 }
 
 .message {
+  margin-bottom: 10px;
+}
+
+.message-header {
+  font-weight: bold;
   margin-bottom: 5px;
 }
 
@@ -81,22 +129,31 @@
   font-weight: bold;
 }
 
-.message-input {
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  margin-right: 5px;
+.message-text {
+  margin-left: 5px;
 }
 
-.send-button {
-  padding: 5px 10px;
+.sale-items-button-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 20px;
+}
+
+.sale-items-button {
   background-color: #007bff;
-  color: #fff;
   border: none;
-  border-radius: 3px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
   cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 120px;
 }
 
-.send-button:hover {
-  background-color: #0056b3;
+.sale-items-button:hover {
+  background-color: #007bff;
 }
