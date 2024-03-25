@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar() {
-  const [user, setUser] = useState()
-  const [window, setWindow] = useState()
+  const [user, setUser] = useState();
+  const [window, setWindow] = useState();
 
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem("User")))
-  }, [])
+    setUser(JSON.parse(localStorage.getItem("User")));
+  }, []);
 
   const handleSearchChange = (event) => {
     if (event.key === "Enter") {
@@ -17,17 +17,15 @@ function Navbar() {
   };
 
   const signOut = () => {
-    localStorage.clear()
-    setUser(null)
-  }
+    localStorage.clear();
+    setUser(null);
+  };
 
   const isLoggedIn = (user) => {
-    return user ? true : false
-  }
+    return user ? true : false;
+  };
 
-  const isUserAdmin = (user) => {
-
-  }
+  const isUserAdmin = (user) => {};
 
   return (
     <nav className="navbar">
@@ -65,26 +63,28 @@ function Navbar() {
             Team
           </Link>
         </li>
-        {isLoggedIn(user) ?
+        {isLoggedIn(user) ? (
           <li>
             <Link to="/profile" className="nav-link">
               Profile
             </Link>
           </li>
-          :
+        ) : (
           <li className="auth">
             <Link to="/signin" className="nav-link">
               Login/Signup
             </Link>
           </li>
-        }
-        {isLoggedIn(user) ?
+        )}
+        {isLoggedIn(user) ? (
           <li onClick={signOut}>
             <Link to="/signin" className="nav-link">
               Sign Out
             </Link>
-          </li> : ""
-        }
+          </li>
+        ) : (
+          ""
+        )}
       </ul>
     </nav>
   );
