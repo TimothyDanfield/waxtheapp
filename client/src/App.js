@@ -18,7 +18,7 @@ import Profile from "./Profile/Profile";
 import Products from "./Products/Products";
 import UserRoutes from "./utils/PrivateRoutes/UserRoutes";
 import AdminRoutes from "./utils/PrivateRoutes/AdminRoutes";
-import SignedInRoutes from './utils/PrivateRoutes/SignedInRoutes'
+import SignedInRoutes from "./utils/PrivateRoutes/SignedInRoutes";
 
 function App() {
   return (
@@ -28,6 +28,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/shop" element={<Shop />} />
+          <Route exact path="/team" element={<Team />} />
           <Route element={<SignedInRoutes />}>
             <Route exact path="/signin" element={<Signin />} />
             <Route exact path="/forgotpassword" element={<ForgotPassword />} />
@@ -36,9 +37,7 @@ function App() {
             <Route exact path="/livestream" element={<LiveStream />} />
             <Route exact path="/profile" element={<Profile />} />
           </Route>
-          <Route element={<AdminRoutes />}>
-
-          </Route>
+          <Route element={<AdminRoutes />}></Route>
         </Routes>
         <Footer />
       </div>

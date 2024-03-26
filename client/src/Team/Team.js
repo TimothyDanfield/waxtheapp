@@ -1,20 +1,19 @@
 import React from "react";
 import "./Team.css";
-
+import timothyDanfieldImage from "client/src/Tim.jpeg";
+import nathanGrandinetteImage from "client/src/Nathan.jpg";
 const Team = () => {
-  // Sample team data with name, role, and image URL
   const teamData = [
     {
       name: "Timothy Danfield",
       role: "Software MERN Engineer",
-      image: "client/src/Tim.jpeg",
+      image: timothyDanfieldImage,
     },
     {
-      name: "Jane Smith",
-      role: "Designer",
-      image: "https://example.com/jane_smith.jpg",
+      name: "Nathan Grandinette",
+      role: "Software MERN Engineer",
+      image: nathanGrandinetteImage,
     },
-    // Add more team members as needed
   ];
 
   return (
