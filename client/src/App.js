@@ -19,6 +19,7 @@ import Products from "./Products/Products";
 import UserRoutes from "./utils/PrivateRoutes/UserRoutes";
 import AdminRoutes from "./utils/PrivateRoutes/AdminRoutes";
 import SignedInRoutes from "./utils/PrivateRoutes/SignedInRoutes";
+import Excel from "./Excel/Excel";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route exact path="/" element={<Home />} />
+          <Route exact path="/excel" element={<Excel />} />
           <Route exact path="/shop" element={<Shop />} />
           <Route exact path="/team" element={<Team />} />
           <Route element={<SignedInRoutes />}>
