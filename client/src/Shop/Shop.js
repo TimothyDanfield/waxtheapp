@@ -1,18 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Shop.css"; // Import the Shop.css file
+import { parse } from "papaparse";
+import "./Shop.css";
 
 function Shop() {
+  const [data, setData] = useState([]);
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    parse(file, {
+      header: true,
+      complete: (results) => {
+        setData(results.data);
+      },
+      error: (error) => {
+        console.error("Error parsing file:", error);
+      },
+    });
+  };
+
   return (
     <div className="shop-container">
-      <a
-        href="https://www.northlandbreaks.com"
-        className="shop-box"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <div className="shop-content"></div>
-      </a>
+      <input type="file" onChange={handleFileUpload} />
+      <div className="shop-box">
+        {data.map((item, index) => (
+          <div key={index} className="shop-item">
+            <h3>{item.partNumber}</h3>
+            <p>{item.partDescription}</p>
+            <p>QTY: {item.qty}</p>
+            <p>Price: ${item.price}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
