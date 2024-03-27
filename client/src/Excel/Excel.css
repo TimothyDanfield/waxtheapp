@@ -1,0 +1,63 @@
+.excel-products {
+    font-size: 11pt;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 100;
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    unicode-bidi: isolate;
+    border-color: inherit;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    unicode-bidi: isolate;
+    border-color: inherit;
+    
+}
+
+th {
+    display: none;
+}
+
+td {
+    width: 200px;
+}
+
+.excel-products TD.heading {
+    display: none;
+}
+
+.excel-products TD {
+    background-color: #fff;
+    padding: 0 4px 0 2px;
+    border: 1px solid #d0d7e5;
+    border-width: 0 1px 1px 0;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+tbody {
+    border-radius: 15px;
+    border: 1px solid black;
+}

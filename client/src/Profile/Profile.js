@@ -4,16 +4,24 @@ import Products from "../Products/Products";
 import fileAxios from "../utils/axiosFileConfig";
 import axios from "../utils/axiosConfig";
 import toast, { Toaster } from "react-hot-toast";
+import { DatePicker, Space } from 'antd'
 import "./Profile.css";
+import ExcelUploader from "../Excel/Excel";
+import OrderHistory from "./OrderHistory";
 
 const Profile = () => {
   const [selected, setSelected] = useState("Info");
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("User")));
+  const [scheduleLive, setScheduleLive] = useState({
+    startTime: "",
+    endTime: ""
+  })
+
+  const { RangePicker } = DatePicker
 
   const getUser = async () => {
     const userInfo = await axios.get(
-      `http://localhost:3001/user/${
-        JSON.parse(localStorage.getItem("User"))._id
+      `http://localhost:3001/user/${JSON.parse(localStorage.getItem("User"))._id
       }`
     );
     setUser(userInfo.data);
@@ -22,8 +30,6 @@ const Profile = () => {
   useEffect(() => {
     getUser();
   }, []);
-
-  console.log(user);
 
   const uploadImage = async (e) => {
     const photo = e.target.files[0];
@@ -42,6 +48,12 @@ const Profile = () => {
       });
   };
 
+  const onOk = (value) => {
+    setScheduleLive({
+      startTime: value[0].$d,
+      endTime: value[1].$d
+    })
+  }
   return (
     <div>
       <div className="profilePage">
@@ -89,10 +101,7 @@ const Profile = () => {
             )}
           </div>
         ) : (
-          <div className="orderHistory">
-            <h2>No orders to display</h2>
-            <div>You don't seem to have any orders</div>
-          </div>
+          <OrderHistory selection={selected} />
         )}
         <div className="separatorLine"></div>
         {user.role === "user" ? (
@@ -104,21 +113,29 @@ const Profile = () => {
           </Link>
         ) : (
           <div className="applySectionAlternate">
-            <div style={{ width: "30%" }}>
+            <div style={{ width: "30%", textAlign: 'left' }}>
               <Link to="/livestream" className="livestream">
                 Go Live
               </Link>
+              <p className="scheduleLive">Schedule a live</p>
             </div>
 
             <h3 style={{ width: "30%" }}>YOU ARE ALREADY A SELLER</h3>
-            <div style={{ width: "30%" }}></div>
+            <div style={{ width: "30%" }}>
+              <RangePicker
+                showTime={{ format: "HH:mm" }}
+                format="MM-DD-YYYY HH:mm"
+                onOk={onOk}
+              />
+            </div>
           </div>
         )}
       </div>
 
       {user.role === "admin" || user.role === "seller" ? (
-        <div>
-          <Products />
+        <div className="product-display">
+          <h1>Products</h1>
+          <ExcelUploader />
         </div>
       ) : (
         ""

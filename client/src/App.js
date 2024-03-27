@@ -1,11 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import {
-  MeetingProvider,
-  MeetingConsumer,
-  useMeeting,
-  useParticipant,
-} from "@videosdk.live/react-sdk";
 import Navbar from "./NavBar/NavBar";
 import Shop from "./Shop/Shop";
 import Home from "./Home/Home";
@@ -15,11 +9,9 @@ import Footer from "./Footer/Footer";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import LiveStream from "./Livestream/Livestream";
 import Profile from "./Profile/Profile";
-import Products from "./Products/Products";
 import UserRoutes from "./utils/PrivateRoutes/UserRoutes";
 import AdminRoutes from "./utils/PrivateRoutes/AdminRoutes";
 import SignedInRoutes from "./utils/PrivateRoutes/SignedInRoutes";
-import Excel from "./Excel/Excel";
 
 function App() {
   return (
@@ -28,7 +20,6 @@ function App() {
         <Navbar />
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/excel" element={<Excel />} />
           <Route exact path="/shop" element={<Shop />} />
           <Route exact path="/team" element={<Team />} />
           <Route element={<SignedInRoutes />}>

@@ -50,11 +50,6 @@ function Navbar() {
             </Link>
           </li>
           <li>
-            <Link to="/excel" className="nav-link">
-              Excel
-            </Link>
-          </li>
-          <li>
             <Link to="/Shop" className="nav-link">
               Shop
             </Link>

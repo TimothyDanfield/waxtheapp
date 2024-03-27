@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "antd": "^5.15.4",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "hamburger-react": "^2.5.0",

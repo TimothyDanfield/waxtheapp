@@ -1,45 +1,49 @@
 import React, { useState } from "react";
-import ExcelRenderer from "react-excel-renderer";
+import { Table, Button, Popconfirm, Row, Col, Upload } from "antd";
+import { TiUploadOutline } from "react-icons/ti";
+import { ExcelRenderer, OutTable } from "react-excel-renderer";
+import './Excel.css'
 
 function ExcelUploader() {
-  const [rows, setRows] = useState([]);
-  const [cols, setCols] = useState([]);
+  const [data, setData] = useState({
+    cols: [],
+    rows: []
+  });
+
+  let rows
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
     ExcelRenderer(file, (err, resp) => {
       if (err) {
         console.error(err);
       } else {
-        setCols(resp.cols);
-        setRows(resp.rows);
+        setData({
+          ...data, cols: resp.cols, rows: resp.rows.filter((row, index) => {
+            return row.length !== 0
+          })
+        });
+        localStorage.setItem("Products", JSON.stringify(resp.rows.filter((row, index) => {
+          return index !== 0 && row.length !== 0
+        })))
       }
     });
   };
 
+  const components = {
+    body: {
+      row: data.row,
+    }
+  }
+
   return (
     <div>
-      <input type="file" onChange={handleFileUpload} />
-      <table>
-        <thead>
-          <tr>
-            {cols.map((col, index) => (
-              <th key={index}>{col.name}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              {row.map((cell, cellIndex) => (
-                <td key={cellIndex}>{cell}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <label for="file-upload" className="custom-file-upload">
+        <TiUploadOutline onChange={handleFileUpload} /> Click to Upload Excel File
+      </label>
+      <input type="file" id="file-upload" onChange={handleFileUpload} />
+      <OutTable data={data.rows} columns={data.cols} tableClassName="excel-products" tableHeaderRowClass="heading" />
     </div>
   );
 }
